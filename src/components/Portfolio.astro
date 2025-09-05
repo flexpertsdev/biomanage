@@ -1,0 +1,147 @@
+---
+interface Props {
+  id?: string;
+}
+
+const { id = 'portfolio' } = Astro.props;
+
+const partners = [
+  {
+    name: 'Airinov',
+    logo: '/images/partners/airinov.png',
+    description: 'Лидер в прецизното земеделие',
+    website: '#'
+  },
+  {
+    name: 'Spacemetric',
+    logo: '/images/partners/spacemetric.png',
+    description: 'Геопространствени решения',
+    website: '#'
+  },
+  {
+    name: 'Зета Груп',
+    logo: '/images/partners/zeta-group.png',
+    description: 'Индустриални решения',
+    website: '#'
+  },
+  {
+    name: 'Konya Seker (Torku)',
+    logo: '/images/partners/konya-seker.png',
+    description: 'Хранителна индустрия',
+    website: '#'
+  },
+  {
+    name: 'Eurovix',
+    logo: '/images/partners/eurovix.png',
+    description: 'Европейски технологични решения',
+    website: 'http://eurovix.it/'
+  },
+  {
+    name: 'Софийски университет',
+    logo: '/images/partners/sofia-university.png',
+    description: 'Академични изследвания',
+    website: '#'
+  },
+  {
+    name: 'Минно-геоложки университет',
+    logo: '/images/partners/mining-university.png',
+    description: 'Специализирани геоложки изследвания',
+    website: '#'
+  }
+];
+---
+
+<section id={id} class="py-20 bg-white">
+  <div class="container mx-auto px-4">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
+        Портфолио
+      </h2>
+      <div class="w-24 h-1 bg-gradient-to-r from-primary-500 to-green-500 mx-auto mb-6"></div>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+        Нашите партньори и успешни проекти
+      </p>
+    </div>
+    
+    <!-- Partners Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 lg:gap-8">
+      {partners.map((partner) => (
+        <div class="group relative bg-white rounded-xl shadow-md hover:shadow-2xl transition-all duration-300 overflow-hidden">
+          <a 
+            href={partner.website}
+            target={partner.website !== '#' ? '_blank' : '_self'}
+            rel={partner.website !== '#' ? 'noopener noreferrer' : ''}
+            class="block p-6 text-center"
+            aria-label={`Вижте повече за ${partner.name}`}
+          >
+            <!-- Partner Logo -->
+            <div class="h-24 flex items-center justify-center mb-4 opacity-80 group-hover:opacity-100 transition-opacity">
+              <img 
+                src={partner.logo} 
+                alt={partner.name}
+                class="max-h-full max-w-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300"
+                loading="lazy"
+                width="150"
+                height="80"
+              >
+            </div>
+            
+            <!-- Partner Info -->
+            <h3 class="text-lg font-semibold text-gray-900 group-hover:text-primary-600 transition-colors">
+              {partner.name}
+            </h3>
+            {partner.description && (
+              <p class="text-sm text-gray-600 mt-2">
+                {partner.description}
+              </p>
+            )}
+            
+            <!-- Hover Indicator -->
+            {partner.website !== '#' && (
+              <div class="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                <svg class="w-5 h-5 text-primary-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+              </div>
+            )}
+          </a>
+        </div>
+      ))}
+    </div>
+    
+    <!-- Additional Info -->
+    <div class="mt-16 text-center">
+      <p class="text-lg text-gray-700 mb-6">
+        Работим с водещи организации и институции за постигане на устойчиви резултати
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <div class="flex items-center space-x-2 px-4 py-2 bg-primary-50 rounded-full">
+          <svg class="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <span class="text-sm font-medium text-gray-800">Доказан опит</span>
+        </div>
+        <div class="flex items-center space-x-2 px-4 py-2 bg-green-50 rounded-full">
+          <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <span class="text-sm font-medium text-gray-800">Международни партньорства</span>
+        </div>
+        <div class="flex items-center space-x-2 px-4 py-2 bg-primary-50 rounded-full">
+          <svg class="w-5 h-5 text-primary-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+          </svg>
+          <span class="text-sm font-medium text-gray-800">Иновативни решения</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Add hover animation */
+  .group:hover {
+    transform: translateY(-4px);
+  }
+</style>

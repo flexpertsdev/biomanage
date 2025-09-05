@@ -1,0 +1,112 @@
+---
+import site from '../data/site.json';
+
+interface Props {
+  title?: string;
+  subtitle?: string;
+  backgroundImage?: string;
+}
+
+const { 
+  title = site.name,
+  subtitle = site.tagline,
+  backgroundImage = '/images/hero-bg.jpg'
+} = Astro.props;
+---
+
+<section class="relative min-h-[100vh] flex items-center justify-center overflow-hidden">
+  <!-- Background with overlay -->
+  <div class="absolute inset-0 z-0">
+    <div 
+      class="absolute inset-0 bg-gradient-to-br from-primary-900/90 via-primary-800/85 to-green-900/90"
+    ></div>
+    <div 
+      class="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
+      style={`background-image: url('${backgroundImage}');`}
+    ></div>
+  </div>
+  
+  <!-- Animated background patterns -->
+  <div class="absolute inset-0 z-1">
+    <div class="absolute top-0 -left-4 w-72 h-72 bg-primary-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob"></div>
+    <div class="absolute top-0 -right-4 w-72 h-72 bg-green-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-2000"></div>
+    <div class="absolute -bottom-8 left-20 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob animation-delay-4000"></div>
+  </div>
+  
+  <!-- Content -->
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="max-w-4xl mx-auto text-center">
+      <h1 class="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 animate-slideUp">
+        {title}
+      </h1>
+      <p class="text-xl md:text-2xl lg:text-3xl text-gray-100 mb-10 animate-slideUp animation-delay-200">
+        {subtitle}
+      </p>
+      
+      <!-- CTA Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slideUp animation-delay-400">
+        <a 
+          href="#services" 
+          class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-primary-600 rounded-lg hover:bg-primary-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+        >
+          Нашите услуги
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+          </svg>
+        </a>
+        <a 
+          href="#contact" 
+          class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-primary-600 bg-white rounded-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+        >
+          Свържете се с нас
+        </a>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+    <a href="#about" aria-label="Превъртете надолу">
+      <svg class="w-6 h-6 text-white opacity-75" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  @keyframes blob {
+    0% {
+      transform: translate(0px, 0px) scale(1);
+    }
+    33% {
+      transform: translate(30px, -50px) scale(1.1);
+    }
+    66% {
+      transform: translate(-20px, 20px) scale(0.9);
+    }
+    100% {
+      transform: translate(0px, 0px) scale(1);
+    }
+  }
+  
+  .animate-blob {
+    animation: blob 7s infinite;
+  }
+  
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  
+  .animation-delay-2000 {
+    animation-delay: 2s;
+  }
+  
+  .animation-delay-4000 {
+    animation-delay: 4s;
+  }
+</style>

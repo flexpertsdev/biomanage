@@ -1,0 +1,164 @@
+---
+interface Props {
+  id?: string;
+}
+
+const { id = 'services' } = Astro.props;
+
+const services = [
+  {
+    title: 'Управление и оптимизация на биогаз инсталации',
+    icon: 'biogas',
+    features: [
+      'Изготвяне на оптимален хранителен план, съобразено с достъпните суровини',
+      'Непрекъснато търсене на подходящи нови суровини',
+      'Извършване на анализи на суровини и изчисляване на биогаз потенциал',
+      'Анализи на диджестата: Сухо вещество, FOS/TAC, C:N:P съотношение'
+    ],
+    benefits: [
+      'Редуциране на експлоатационните разходи',
+      'Въвеждане на система за мониторинг',
+      'Аварийна превенция и минимизиране на риска'
+    ]
+  },
+  {
+    title: 'Управление и оптимизация на ПСОВ',
+    icon: 'water',
+    features: [
+      'SWOT анализ на моментното състояние',
+      'Въвеждане на технологии за редуциране на БПК5, ХПК, Нитратен азот, Фосфати',
+      'Увеличаване капацитета без изграждане на нова инсталация',
+      'Оптимизиране и контрол на експлоатационните разходи'
+    ],
+    benefits: [
+      'Намаляне електроконсумацията и времепрестоя',
+      'Прецизно управление и нови технологии',
+      'Аварийна превенция и минимизиране на риска'
+    ]
+  },
+  {
+    title: 'Управление и оптимизация на компостиращи инсталации',
+    icon: 'compost',
+    features: [
+      'Елиминиране на неприятни миризми',
+      'Намаляване времето за престой на органиката',
+      'Увеличаване капацитета на инсталацията',
+      'Подобряване качествата на крайния продукт'
+    ],
+    benefits: [
+      'Съдействие за биологично сертифициране',
+      'Компостиране на място (In Situ)',
+      'Прецизно управление на процеса'
+    ]
+  },
+  {
+    title: 'Биоремедиация на почви, води и седименти',
+    icon: 'remediation',
+    features: [
+      'Възстановяване на замърсени почви и водоеми',
+      'Премахване на тежки метали и металоиди',
+      'Очистване от нефт и нефтопродукти',
+      'Възстановяване на микрофлора и органична материя'
+    ],
+    benefits: [
+      'Ремедиация на промишлени утайници',
+      'Подобряване на екологичните условия',
+      'Интензифициране на аквакултурното производство'
+    ]
+  }
+];
+
+const getIconSvg = (icon: string) => {
+  const icons = {
+    biogas: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"/>',
+    water: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>',
+    compost: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>',
+    remediation: '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>'
+  };
+  return icons[icon] || icons.biogas;
+};
+---
+
+<section id={id} class="py-20 bg-gradient-to-b from-gray-50 to-white">
+  <div class="container mx-auto px-4">
+    <!-- Section Header -->
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-display font-bold text-gray-900 mb-4">
+        Нашите услуги
+      </h2>
+      <div class="w-24 h-1 bg-gradient-to-r from-primary-500 to-green-500 mx-auto mb-6"></div>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+        Предлагаме цялостни решения за управление и оптимизация на биотехнологични процеси
+      </p>
+    </div>
+    
+    <!-- Services Grid -->
+    <div class="space-y-12">
+      {services.map((service, index) => (
+        <div class={`group ${index % 2 === 0 ? '' : 'lg:flex-row-reverse'}`}>
+          <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
+            <div class="flex flex-col lg:flex-row">
+              <!-- Service Content -->
+              <div class="flex-1 p-8 lg:p-10">
+                <div class="flex items-start mb-6">
+                  <div class="w-14 h-14 bg-gradient-to-br from-primary-500 to-green-500 rounded-xl flex items-center justify-center flex-shrink-0">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" set:html={getIconSvg(service.icon)}>
+                    </svg>
+                  </div>
+                  <h3 class="text-2xl font-bold text-gray-900 ml-4 flex-1">
+                    {service.title}
+                  </h3>
+                </div>
+                
+                <!-- Features -->
+                <div class="mb-6">
+                  <h4 class="text-lg font-semibold text-gray-800 mb-3">Основни дейности:</h4>
+                  <ul class="space-y-2">
+                    {service.features.map((feature) => (
+                      <li class="flex items-start">
+                        <svg class="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="text-gray-700 ml-2">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <!-- Benefits -->
+                {service.benefits && (
+                  <div>
+                    <h4 class="text-lg font-semibold text-gray-800 mb-3">Ползи:</h4>
+                    <div class="flex flex-wrap gap-2">
+                      {service.benefits.map((benefit) => (
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                          {benefit}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+              
+              <!-- Decorative Element -->
+              <div class="hidden lg:block w-1 bg-gradient-to-b from-primary-500 to-green-500"></div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+    <!-- CTA -->
+    <div class="text-center mt-16">
+      <a 
+        href="#contact"
+        class="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white bg-gradient-to-r from-primary-600 to-green-600 rounded-lg hover:from-primary-700 hover:to-green-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+      >
+        Свържете се за консултация
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>

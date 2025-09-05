@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://biomanage.eu/sitemap-index.xml

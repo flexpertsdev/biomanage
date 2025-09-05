@@ -1,0 +1,121 @@
+---
+import site from '../data/site.json';
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-sm transition-all duration-300" id="header">
+  <div class="container mx-auto px-4">
+    <nav class="flex items-center justify-between h-20" aria-label="Основна навигация">
+      <!-- Logo -->
+      <a href="/" class="flex items-center space-x-2 group">
+        <img 
+          src={site.logo} 
+          alt={site.name}
+          class="h-12 w-auto transition-transform group-hover:scale-105"
+          loading="eager"
+          width="120"
+          height="48"
+        >
+      </a>
+      
+      <!-- Desktop Navigation -->
+      <ul class="hidden lg:flex items-center space-x-8">
+        {site.navigation.map((item) => (
+          <li>
+            <a 
+              href={item.href}
+              class="text-gray-700 hover:text-primary-600 font-medium transition-colors duration-200 py-2"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      
+      <!-- Mobile Menu Button -->
+      <button
+        type="button"
+        class="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+        aria-label="Отвори мобилно меню"
+        aria-expanded="false"
+        id="mobile-menu-toggle"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </nav>
+    
+    <!-- Mobile Navigation -->
+    <nav 
+      class="lg:hidden fixed top-20 left-0 right-0 bg-white shadow-lg transform -translate-y-full transition-transform duration-300 opacity-0"
+      id="mobile-menu"
+      aria-label="Мобилна навигация"
+    >
+      <ul class="py-4">
+        {site.navigation.map((item) => (
+          <li>
+            <a 
+              href={item.href}
+              class="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-primary-600 transition-colors"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('header');
+  const mobileToggle = document.getElementById('mobile-menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  // Scroll behavior
+  let lastScroll = 0;
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+    
+    if (currentScroll <= 0) {
+      header?.classList.remove('scrolled');
+    } else if (currentScroll > lastScroll) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+    
+    lastScroll = currentScroll;
+  });
+  
+  // Mobile menu toggle
+  mobileToggle?.addEventListener('click', () => {
+    const isOpen = mobileToggle.getAttribute('aria-expanded') === 'true';
+    
+    if (!isOpen) {
+      mobileMenu?.classList.remove('-translate-y-full', 'opacity-0');
+      mobileMenu?.classList.add('translate-y-0', 'opacity-100');
+      mobileToggle.setAttribute('aria-expanded', 'true');
+    } else {
+      mobileMenu?.classList.add('-translate-y-full', 'opacity-0');
+      mobileMenu?.classList.remove('translate-y-0', 'opacity-100');
+      mobileToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+  
+  // Close mobile menu on link click
+  const mobileLinks = mobileMenu?.querySelectorAll('a');
+  mobileLinks?.forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('-translate-y-full', 'opacity-0');
+      mobileMenu?.classList.remove('translate-y-0', 'opacity-100');
+      mobileToggle?.setAttribute('aria-expanded', 'false');
+    });
+  });
+</script>
+
+<style>
+  header.scrolled {
+    @apply shadow-md;
+  }
+</style>
